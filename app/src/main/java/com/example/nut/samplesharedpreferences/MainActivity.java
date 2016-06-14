@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
@@ -19,10 +19,8 @@ public class MainActivity extends AppCompatActivity {
     EditText mainUsername;
     @BindView(R.id.main_password)
     EditText mainPassword;
-    @BindView(R.id.main_save_btn)
-    Button mainSaveBtn;
-    @BindView(R.id.main_display_btn)
-    Button mainDisplayBtn;
+    @BindView(R.id.main_text_view_display)
+    TextView mainTextViewDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +42,10 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Saved!", Toast.LENGTH_LONG).show();
                 break;
             case R.id.main_display_btn:
-                
+                SharedPreferences sharedPreferences = getSharedPreferences("USER_INFO", Context.MODE_PRIVATE);
+                String username = sharedPreferences.getString("USERNAME", "");
+                String password = sharedPreferences.getString("PASSWORD", "");
+                mainTextViewDisplay.setText(String.format("Username: %s\nPassword: %s", username, password));
                 break;
         }
     }
